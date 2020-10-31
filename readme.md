@@ -15,6 +15,7 @@ pip install pyserial
 
 - Arduino part:
   1. Finish arduino side's wiring, then turn on the power.
+  ![imange](https://github.com/nawmrofed/ble_and_photoresistor/blob/master/hc-06.png)
 - Computer part:
   1. For computer side, turn on bluetooth and connect the device **"photoresistor"**.
   2. find out the device's Connect port name.
