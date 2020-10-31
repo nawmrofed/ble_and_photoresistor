@@ -1,6 +1,6 @@
 ## BLE and photoresistor 
 
-###　target
+### target
 
 record photoresistor value and send it to computer, record as csv file.
 
@@ -10,7 +10,7 @@ record photoresistor value and send it to computer, record as csv file.
 pip install pyserial
 ```
 
-###　Toturial
+### Toturial
 
 - Arduino part:
   1. Finish arduino side's wiring, then turn on the power.
