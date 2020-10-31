@@ -7,6 +7,7 @@ record photoresistor value and send it to computer, record as csv file.
 ### installation
 
 ```bash
+git clone https://github.com/nawmrofed/ble_and_photoresistor.git
 pip install pyserial
 ```
 
