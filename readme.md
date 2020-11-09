@@ -1,19 +1,27 @@
 ## BLE and photoresistor 
 
-###　target
+### target
 
 record photoresistor value and send it to computer, record as csv file.
 
 ### installation
 
 ```bash
+git clone https://github.com/nawmrofed/ble_and_photoresistor.git
 pip install pyserial
 ```
 
-###　Toturial
+### Toturial
 
 - Arduino part:
   1. Finish arduino side's wiring, then turn on the power.
+    - bluetooth module(HC-06)
+      
+      ![imange](https://github.com/nawmrofed/ble_and_photoresistor/blob/master/hc-06.png)
+    - photoresistor  
+      - first pin -> A0
+      - third pin -> GND
+      - fourth pin -> 5V
 - Computer part:
   1. For computer side, turn on bluetooth and connect the device **"photoresistor"**.
   2. find out the device's Connect port name.
