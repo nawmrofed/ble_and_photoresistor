@@ -16,8 +16,10 @@ pip install pyserial
 - Arduino part:
   1. Finish arduino side's wiring, then turn on the power.
     - bluetooth module(HC-06)
-      
-      ![imange](https://github.com/nawmrofed/ble_and_photoresistor/blob/master/hc-06.png)
+      - VCC -> 5V
+      - GND -> GND
+      - TxD -> ~10
+      - RxD -> ~11
     - photoresistor  
       - first pin -> A0
       - third pin -> GND
