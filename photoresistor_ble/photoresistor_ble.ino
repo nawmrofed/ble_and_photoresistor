@@ -1,21 +1,15 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial HC06(10, 11); //HC06-TX Pin 10, HC06-RX to Arduino Pin 11
+
 int CDSPin = 0; // 光敏電阻接在A0接腳
 int CDSVal = 0; // 設定初始光敏電阻值為0 強度越大，電阻值越小；光強度越小，電阻值越大。
 int ledPin = 7;      // LED connected to digital pin 9
-int* cache;
 typedef enum{
-  Set,
   Start,
   Record,
 } Mode;
-Mode mode = Set;
-unsigned long start_time = 0;
-unsigned long current_time = 0;
-unsigned long sample_cycle = 0;
-unsigned long time_limit = 2.5;
-bool record_mode = false;
+Mode mode = Start;
+bool check = false;
 
 boolean isNumeric(String str) {
     byte stringLength = str.length();
@@ -33,68 +27,43 @@ boolean isNumeric(String str) {
 }
 
 void setup() {
-  HC06.begin(9600); //Baudrate 9600 , Choose your own baudrate 
-  Serial.begin(9600);
+  Serial.begin(115200); //Baudrate 9600 , Choose your own baudrate 
+//  Serial.begin(9600);
 }
 
 void loop() {   
   if (mode == Record)
   {
-    int _size = 2500 / sample_cycle;
-    cache = new int [_size];
-    start_time = millis();
-    cache[0] = analogRead(CDSPin);
-    current_time = start_time;
     int num = 0;
-    for (int i = 1; i < _size; i++)
+    if(Serial.available() > 0)
     {
-      num += sample_cycle;
-      while ((current_time - start_time) < num)
+      char c = Serial.read();
+      if (c == '1')
       {
-        current_time = millis();
-      } 
-      cache[i] = analogRead(CDSPin);
-    }
-    for (int i = 0; i < _size; i++)
-    {
-        bool check = true;
-        while(check)
-        {
-          while(HC06.available() > 0 && HC06.read() == '1')
-          {
-              HC06.println(cache[i]);
-              check = false;
-          }
-        }
-    }
-    delete cache;
-    mode = Set;
-  }
-  else if (mode == Set)
-  {
-    if(HC06.available() > 0) //When HC06 receive something
-    {
-      String receive = HC06.readString(); //Read from Serial Communication
-      if(isNumeric(receive))
-      {
-        sample_cycle = receive.toInt();
+        check = true;
+      }
+      else if (c == '2')
+      { 
         mode = Start;
-        HC06.println(sample_cycle);
+        check = false;
       }
     }
+    if (check)
+    {
+      Serial.println(analogRead(CDSPin));
+      Serial.flush();
+    }    
   }
   else
   {
-    if(HC06.available() > 0) //When HC06 receive something
+    if(Serial.available() > 0) //When Serial receive something
     {
-      char receive = HC06.read(); //Read from Serial Communication
+      char receive = Serial.read(); //Read from Serial Communication
       if(receive == 'S')
       {
         mode = Record;
-        HC06.println('S');
+        Serial.println('S');
       }
-      else if(receive == 'Q')
-        mode = Set;
     }
   }
 }
