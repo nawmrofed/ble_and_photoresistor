@@ -41,4 +41,10 @@ pip install pyserial
     scp pi@192.168.1.10:[src file path] [dst file path]
     ```
 
-    
+  - shut down Rpi (please shut down Rpi before turn off power)
+  
+      ```bash
+      sudo halt
+      ```
+  
+      
