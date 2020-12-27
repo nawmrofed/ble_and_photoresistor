@@ -46,5 +46,4 @@ pip install pyserial
       ```bash
       sudo halt
       ```
-  
-      
+  <!-- test emoji ! -->
